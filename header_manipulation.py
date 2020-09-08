@@ -5,12 +5,12 @@
 from collections import Counter
 from ordered_set import OrderedSet
 
+
 class HeaderManipulation():
 
     def __init__(self, first_headers, second_headers):
         self.first_headers = first_headers
         self.second_headers = second_headers
-
 
     def count_occurence(self, to_compare_headers):
         """
@@ -48,7 +48,7 @@ class HeaderManipulation():
         total_headers = self.merge_headers(first_headers, second_headers)
 
         current_occured_headers = self.count_occurence(total_headers)
-        
+
         header_dictionary = self.merge_header_names_with_occurence(
             total_headers, current_occured_headers)
 
@@ -57,9 +57,11 @@ class HeaderManipulation():
                 unique_header_list.append(unique_header)
 
         if not unique_header_list:
-            return print('The files have no different headers.')
+            print('The files have no different headers.')
         else:
-            return print(unique_header_list)
+            for item in unique_header_list:
+                print(f"Unique header in the file:"
+                f"\033[1m \033[31m{item}\033[0m \033[30m")
 
     def merge_headers(self, first_headers, second_headers):
         """

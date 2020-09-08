@@ -9,18 +9,21 @@
 """
 
 from read_csv import DifferentiateCSV
-from header_manipulation import HeaderManipulation
+from row_manipulation import RowManipulation
+
 
 def main():
     """
         This function provides the arguments for the DifferentiateCSV class.
         After doing so calls the method that triggers the proces.
     """
-    rcsv = DifferentiateCSV("consist_info.csv",
-                            "consist_info2.csv")
-    
+    print("\033[4moverview of all the unique headers.\033[0m")
+    rcsv = DifferentiateCSV("consist_info.csv", "consist_info2.csv")
     rcsv.genereate_header_files()
-
+    print("==================================================================")
+    print("\033[4mOverview of all the duplicate ports and their index.\033[0m")
+    row_m = RowManipulation("consist_info.csv")
+    row_m.show_duplicate_rows()
 
 if __name__ == "__main__":
     main()
