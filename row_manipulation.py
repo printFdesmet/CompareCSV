@@ -6,6 +6,8 @@
     only one address (the others are being resolved (DNS)).
     The only one that has to be preserved is the one with the .248 octet.
 """
+import csv
+
 import pandas as pd
 '''
     TODO: Select the correct column. (PORT)
@@ -16,6 +18,8 @@ import pandas as pd
 
 
 class RowManipulation():
+    data_list = []
+
     def __init__(self, csv_file):
         self.csv_file = csv_file
 
@@ -24,19 +28,32 @@ class RowManipulation():
         data = pd.read_csv(self.csv_file)
         previous_value = 0
         index = 0
+        rows_to_remove = []
         for column in data['#PORT_']:
             if previous_value == column:
                 print(
                     f"\trow line: \033[1m \033[31m{index}\033[0m \033[30m with"
                     f"duplicate: \033[1m \033[31m{column}\033[0m \033[30m")
-                self.remove_duplicate_rows(data, index)
+                rows_to_remove.append(index)
 
             index += 1
             previous_value = column
-        
-        print(data)
+
+            
+        self.remove_duplicate_rows(data, rows_to_remove)
+        self.write_new_csv()
 
     def remove_duplicate_rows(self, dataframe, index_from_row):
-        pd.set_option("display.max_rows", None, "display.max_columns", None)
-        dataframe.drop(index_from_row)
+        global data_list 
+        data_list = dataframe.values.tolist()
+        for index in reversed(index_from_row):
+            print(f"removing the following row:\n{data_list[index]}")
+            del data_list[index]
+
+    
+    def write_new_csv(self):
+        global data_list
+        with open('excluded_rows.csv', 'w') as writer_file:
+            writer = csv.writer(writer_file)
+            writer.writerows(data_list)
 
