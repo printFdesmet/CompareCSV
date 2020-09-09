@@ -6,7 +6,8 @@
     only one address (the others are being resolved (DNS)).
     The only one that has to be preserved is the one with the .248 octet.
 """
-''' 
+import pandas as pd
+'''
     TODO: Select the correct column. (PORT)
     TODO: Loop over the rows and print out duplicates with the same port number
     TODO: Remove the duplicates, keep original (address, 248)
@@ -14,21 +15,28 @@
 '''
 
 
-
-
-import pandas as pd
 class RowManipulation():
     def __init__(self, csv_file):
         self.csv_file = csv_file
 
     def show_duplicate_rows(self):
+        # pd.set_option("display.max_rows", None, "display.max_columns", None)
         data = pd.read_csv(self.csv_file)
         previous_value = 0
-        index = 1
+        index = 0
         for column in data['#PORT_']:
             if previous_value == column:
-                print(f"row line: \033[1m \033[31m{index}\033[0m \033[30m with"
-                f"duplicate number: \033[1m \033[31m{column}\033[0m \033[30m")
-            
+                print(
+                    f"\trow line: \033[1m \033[31m{index}\033[0m \033[30m with"
+                    f"duplicate: \033[1m \033[31m{column}\033[0m \033[30m")
+                self.remove_duplicate_rows(data, index)
+
             index += 1
             previous_value = column
+        
+        print(data)
+
+    def remove_duplicate_rows(self, dataframe, index_from_row):
+        pd.set_option("display.max_rows", None, "display.max_columns", None)
+        dataframe.drop(index_from_row)
+

@@ -60,8 +60,8 @@ class HeaderManipulation():
             print('The files have no different headers.')
         else:
             for item in unique_header_list:
-                print(f"Unique header in the file:"
-                f"\033[1m \033[31m{item}\033[0m \033[30m")
+                print(f"\tUnique header in the file:"
+                      f"\033[1m \033[31m{item}\033[0m \033[30m")
 
     def merge_headers(self, first_headers, second_headers):
         """

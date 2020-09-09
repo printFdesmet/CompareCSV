@@ -16,7 +16,7 @@ class DifferentiateCSV():
 
     def genereate_header_files(self):
         """
-            This method calls the read_headers_from_csv method, then appends 
+            This method calls the read_headers_from_csv method, then appends
             the output as arguments for the class instantiation.
             Finally calls the method to trigger the header class.
         """
@@ -26,7 +26,7 @@ class DifferentiateCSV():
         header_m = HeaderManipulation(first_file, second_file)
 
         return header_m.get_unique_headers()
-    
+
     def read_headers_from_csv(self, selected_csv):
         """
             This method reads in the provided CSV and extracts the headers.
@@ -39,4 +39,3 @@ class DifferentiateCSV():
             print(f"Could not found {no_file}.")
 
         return headers
-    
