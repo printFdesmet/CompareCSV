@@ -35,7 +35,6 @@ class DifferentiateCSV():
             with open(selected_csv, 'r') as open_csv_file:
                 reader = csv.reader(open_csv_file)
                 headers = next(reader, None)
+                return headers
         except FileNotFoundError as no_file:
             print(f"Could not found {no_file}.")
-
-        return headers
