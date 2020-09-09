@@ -7,3 +7,4 @@ consist_info2.csv
 __pycache__/read_csv.cpython-38.pyc
 __pycache__/row_manipulation.cpython-38.pyc
 excluded_rows.csv
+consist_info_final.csv
