@@ -25,7 +25,7 @@ class HeaderManipulation():
         """
             This method takes a list of headers and removes the
             multiple values from the list.
-            Returns a tuple containing the multiple data.
+            Returns a tuple containing both lists.
         """
         first_header_set = OrderedSet(first_headers)
         first_header_list = list(first_header_set)
