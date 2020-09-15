@@ -9,12 +9,12 @@ import csv
 from header_manipulation import HeaderManipulation
 
 
-class DifferentiateCSV():
+class ReadCSV():
     def __init__(self, first_csv, second_csv):
         self.first_csv = first_csv
         self.second_csv = second_csv
 
-    def genereate_header_files(self):
+    def show_unique_headers(self):
         """
             This method calls the read_headers_from_csv method, then appends
             the output as arguments for the class instantiation.
