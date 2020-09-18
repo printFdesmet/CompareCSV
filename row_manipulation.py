@@ -13,8 +13,10 @@ import pandas as pd
 from read_csv import ReadCSV as RCSV
 
 
-class RowManipulation():
-    data_list = []
+data_list = []
+
+
+class RowManipulation:
 
     def __init__(self, csv_file):
         self.csv_file = csv_file
@@ -47,7 +49,8 @@ class RowManipulation():
             print(f"\n\033[92mDuplicate rows have been"
                   f"succesfully removed.\033[0m")
 
-    def remove_duplicate_rows(self, dataframe, index_from_row):
+    @staticmethod
+    def remove_duplicate_rows(dataframe, index_from_row):
         """
             This method converts the dataframe to a list and uses the provided
             indexes(in list form) to remove them from the list.
@@ -63,8 +66,8 @@ class RowManipulation():
             content of the global list with the headers included.
         """
         global data_list
-        headers = RCSV.read_headers_from_csv(self, selected_csv=self.csv_file)
-        with open('consist_info_final.csv', 'w', newline='') as writer_file:
+        headers = RCSV.read_headers_from_csv(selected_csv=self.csv_file)
+        with open('data/consist_info_final.csv', 'w', newline='') as writer_file:
             writer = csv.writer(writer_file)
             writer.writerow(header for header in headers)
             writer.writerows(data_list)

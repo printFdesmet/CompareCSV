@@ -6,22 +6,24 @@ from collections import Counter
 from ordered_set import OrderedSet
 
 
-class HeaderManipulation():
+class HeaderManipulation:
 
     def __init__(self, first_headers, second_headers):
         self.first_headers = first_headers
         self.second_headers = second_headers
 
-    def count_occurence(self, to_compare_headers):
+    @staticmethod
+    def count_occurrence(to_compare_headers):
         """
-            This method counts the amount off occurences inside the provided
+            This method counts the amount off occurrence inside the provided
             list.
         """
-        headers_occurence = Counter(to_compare_headers).values()
+        headers_occurrence = Counter(to_compare_headers).values()
 
-        return list(headers_occurence)
+        return list(headers_occurrence)
 
-    def create_single_contingency(self, first_headers, second_headers):
+    @staticmethod
+    def create_single_contingency(first_headers, second_headers):
         """
             This method takes a list of headers and removes the
             multiple values from the list.
@@ -33,7 +35,7 @@ class HeaderManipulation():
         second_header_set = OrderedSet(second_headers)
         second_header_list = list(second_header_set)
 
-        return (first_header_list, second_header_list)
+        return first_header_list, second_header_list
 
     def get_unique_headers(self):
         """
@@ -47,10 +49,10 @@ class HeaderManipulation():
 
         total_headers = self.merge_headers(first_headers, second_headers)
 
-        current_occured_headers = self.count_occurence(total_headers)
+        current_occurred_headers = self.count_occurrence(total_headers)
 
-        header_dictionary = self.merge_header_names_with_occurence(
-            total_headers, current_occured_headers)
+        header_dictionary = self.merge_header_names_with_occurrence(
+            total_headers, current_occurred_headers)
 
         for unique_header, count in header_dictionary.items():
             if count == 1:
@@ -63,19 +65,23 @@ class HeaderManipulation():
                 print(f"\tUnique header in the file:"
                       f"\033[1m \033[31m{item}\033[0m \033[30m")
 
-    def merge_headers(self, first_headers, second_headers):
+    @staticmethod
+    def merge_headers(first_headers, second_headers):
         """
             This method merges the provided header lists.
-            after merging, uppercases the result for easier comparing.
+            after merging, upper cases the result for easier comparing.
         """
         total_headers = first_headers + second_headers
-        total_headers_uppercased = [header.upper() for header in total_headers]
+        total_headers_upper_cased = \
+            [header.upper() for header in total_headers]
 
-        return total_headers_uppercased
+        return total_headers_upper_cased
 
-    def merge_header_names_with_occurence(self, headers, occurence):
+    @staticmethod
+    def merge_header_names_with_occurrence(headers, occurrence):
         """
-            This method combines the headers with their occurences, for example
+            This method combines the headers with their occurrences,
+            for example:
             key name: value 1 == unique.
             key stuff: value 2 == common ground.
         """
@@ -85,8 +91,6 @@ class HeaderManipulation():
 
         for count in range(len(header_list)):
             header_dictionary.update(
-                {header_list[count]:
-                 occurence[count]
-                 })
+                {header_list[count]: occurrence[count]})
 
         return header_dictionary

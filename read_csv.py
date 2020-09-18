@@ -3,13 +3,14 @@
     returns its unique values.
 """
 
-
 import csv
+
+import pandas as pd
 
 from header_manipulation import HeaderManipulation
 
 
-class ReadCSV():
+class ReadCSV:
     def __init__(self, first_csv, second_csv):
         self.first_csv = first_csv
         self.second_csv = second_csv
@@ -27,7 +28,8 @@ class ReadCSV():
 
         return header_m.get_unique_headers()
 
-    def read_headers_from_csv(self, selected_csv):
+    @staticmethod
+    def read_headers_from_csv(selected_csv):
         """
             This method reads in the provided CSV and extracts the headers.
         """
@@ -38,3 +40,18 @@ class ReadCSV():
                 return headers
         except FileNotFoundError as no_file:
             print(f"Could not found {no_file}.")
+
+    @staticmethod
+    def read_multicast_addresses_from_csv(selected_csv):
+        """This method creates a list of multicast addresses from the csv.
+        """
+
+        multicast_list = []
+        data = pd.read_csv(selected_csv, encoding="ISO-8859-1", header=0)
+
+        for item in data["STATICMULTICAST"]:
+            multicast_list.append(item)
+
+        stringed_list = str(multicast_list)
+        final_list = stringed_list.split(',')
+        return print(final_list)
